@@ -1,16 +1,16 @@
-# Sử dụng một base image của Java
-FROM openjdk:17-jdk-slim
+# Sử dụng base image có sẵn Maven và JDK 17
+FROM maven:3.8.5-openjdk-17
 
 # Thiết lập thư mục làm việc bên trong container
 WORKDIR /app
 
-# Sao chép file pom.xml để tải dependencies
+# Sao chép file pom.xml để Maven tải các dependencies
 COPY pom.xml .
 
-# Chạy Maven để tải dependencies
+# Chạy lệnh Maven để tải dependencies
 RUN mvn dependency:go-offline
 
-# Sao chép toàn bộ source code của dự án vào container
+# Sao chép toàn bộ mã nguồn của dự án vào container
 COPY src ./src
 
 # Đóng gói ứng dụng Java thành một file .jar
